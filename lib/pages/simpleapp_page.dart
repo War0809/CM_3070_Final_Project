@@ -15,15 +15,15 @@ class SimpleAppPage extends StatefulWidget {
 
 class _SimpleAppPageState extends State<SimpleAppPage> {
   int _currentIndex = 0;
-  List<Map<String, dynamic>> _books = []; // Store books here
-  List<Map<String, dynamic>> _favoriteBooks = []; // Store favorite books here
+  List<Map<String, dynamic>> _books = [];
+  List<Map<String, dynamic>> _favoriteBooks = [];
   bool isLoading = false;
 
   @override
   void initState() {
     super.initState();
     _fetchBooks();
-    _fetchFavoriteBooks(); // Fetch favorite books
+    _fetchFavoriteBooks();
   }
 
   Future<void> _fetchBooks() async {
@@ -68,7 +68,7 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
         .from('books')
         .select('id, title, thumbnail')
         .eq('user_id', user.id)
-        .eq('is_favorite', true) // Fetch only favorite books
+        .eq('is_favorite', true)
         .execute();
 
     setState(() {
@@ -156,7 +156,7 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
-                              height: 250, // Adjust height to fit book display
+                              height: 250,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: _books.length,
@@ -189,13 +189,13 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
                                         const SizedBox(height: 8),
                                         SizedBox(
                                           width: 150,
-                                          height: 40, // Fixed height for title area
+                                          height: 40,
                                           child: Text(
                                             book['title'] ?? 'Unknown',
                                             style: const TextStyle(fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
-                                            maxLines: 2, // Limit title to 2 lines
-                                            overflow: TextOverflow.ellipsis, // Truncate if too long
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ],
@@ -204,7 +204,7 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
                                 },
                               ),
                             ),
-                            const SizedBox(height: 16), // Space between modules
+                            const SizedBox(height: 16),
                             const Padding(
                               padding: EdgeInsets.only(left: 8.0),
                               child: Text(
@@ -217,7 +217,7 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
                             ),
                             const SizedBox(height: 8),
                             SizedBox(
-                              height: 250, // Adjust height to fit favorite book display
+                              height: 250,
                               child: ListView.builder(
                                 scrollDirection: Axis.horizontal,
                                 itemCount: _favoriteBooks.length,
@@ -250,13 +250,13 @@ class _SimpleAppPageState extends State<SimpleAppPage> {
                                         const SizedBox(height: 8),
                                         SizedBox(
                                           width: 150,
-                                          height: 40, // Fixed height for title area
+                                          height: 40,
                                           child: Text(
                                             book['title'] ?? 'Unknown',
                                             style: const TextStyle(fontWeight: FontWeight.bold),
                                             textAlign: TextAlign.center,
-                                            maxLines: 2, // Limit title to 2 lines
-                                            overflow: TextOverflow.ellipsis, // Truncate if too long
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                           ),
                                         ),
                                       ],
