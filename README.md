@@ -35,29 +35,6 @@ OCR: Google Vision API & Tesseract OCR
 NLP: Natural Language Processing using Python (SpaCy)
 
 Deployment: Firebase (Optional for hosting and storage)
-🧑‍💻 Installation Guide
-
-Follow these steps to run the project locally:
-
-Clone the Repository:
-
-git clone https://github.com/yourusername/mise-en-place.git
-cd mise-en-place
-
-Set Up Environment Variables:
-Create a .env file in the root directory with the following:
-
-SUPABASE_URL=your_supabase_url
-SUPABASE_KEY=your_supabase_key
-GOOGLE_VISION_API_KEY=your_google_vision_api_key
-
-Install Dependencies:
-
-flutter pub get
-
-Run the App:
-
-flutter run
 
 🧪 Testing
 
