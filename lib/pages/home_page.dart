@@ -17,7 +17,6 @@ class _HomePageState extends State<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            /// Logo Image
             Image.asset(
               'assets/images/logo.png',
               width: 150,
@@ -25,16 +24,15 @@ class _HomePageState extends State<HomePage> {
             ),
             smallGap,
 
-            /// Sign In Button (3D effect)
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/signin');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Button color
-                foregroundColor: Colors.white, // Text color
-                elevation: 8, // 3D elevation
-                shadowColor: Colors.blueAccent, // Shadow color
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
+                elevation: 8,
+                shadowColor: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
@@ -44,16 +42,15 @@ class _HomePageState extends State<HomePage> {
             ),
             smallGap,
 
-            /// Register Button (3D effect)
             ElevatedButton(
               onPressed: () {
                 Navigator.pushNamed(context, '/signup');
               },
               style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.blue, // Button color
-                foregroundColor: Colors.white, // Text color
+                backgroundColor: Colors.blue,
+                foregroundColor: Colors.white,
                 elevation: 8, // 3D elevation
-                shadowColor: Colors.blueAccent, // Shadow color
+                shadowColor: Colors.blueAccent,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(12),
                 ),
