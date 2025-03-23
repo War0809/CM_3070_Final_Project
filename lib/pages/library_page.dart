@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:mise_en_place/utils/styles.dart';
-import 'book_details_page.dart'; // Import the BookDetailsPage
+import 'book_details_page.dart';
 
 class LibraryPage extends StatefulWidget {
   const LibraryPage({super.key});
@@ -48,7 +48,7 @@ class _LibraryPageState extends State<LibraryPage> {
 
     final response = await Supabase.instance.client
         .from('books')
-        .select('id, title, author, year, thumbnail, index, is_favorite') // Fetch the 'is_favorite' field
+        .select('id, title, author, year, thumbnail, index, is_favorite')
         .eq('user_id', user.id)
         .execute();
 
@@ -64,26 +64,22 @@ class _LibraryPageState extends State<LibraryPage> {
       setState(() {
         _books = List<Map<String, dynamic>>.from(response.data);
         _filteredBooks = _books.map((book) {
-          // Ensure the 'is_favorite' field is present for each book
-          book['isFavorite'] = book['is_favorite'] ?? false; // Default to false if not set
+          book['isFavorite'] = book['is_favorite'] ?? false;
           return book;
-        }).toList(); // Initially show all books
+        }).toList();
       });
     }
   }
 
   void _onSearchChanged() {
     String searchTerm = _searchController.text.toLowerCase();
-    List<String> searchTerms = searchTerm.trim().split(RegExp(r'\s+')); // Split by whitespace, ignore extra spaces
+    List<String> searchTerms = searchTerm.trim().split(RegExp(r'\s+'));
     setState(() {
       if (searchTerm.isEmpty) {
-        // If the search term is empty, show all books
         _filteredBooks = _books;
       } else {
-        // Filter books by checking if the 'index' contains any of the search terms
         _filteredBooks = _books.where((book) {
           final indexText = book['index']?.toLowerCase() ?? '';
-          // Check if any search term is present in the index
           return searchTerms.any((term) => indexText.contains(term));
         }).toList();
       }
@@ -92,20 +88,18 @@ class _LibraryPageState extends State<LibraryPage> {
 
   void _toggleFavorite(Map<String, dynamic> book) async {
     setState(() {
-      book['isFavorite'] = !book['isFavorite']; // Toggle favorite status
+      book['isFavorite'] = !book['isFavorite'];
     });
 
-    // Update the database with the new favorite status
     final response = await Supabase.instance.client
         .from('books')
         .update({
           'is_favorite': book['isFavorite'],
         })
-        .eq('id', book['id']) // Use the book's ID to find the correct record
+        .eq('id', book['id'])
         .execute();
 
     if (response.error != null) {
-      // Handle error if needed
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(content: Text('Error updating favorite: ${response.error!.message}')),
       );
@@ -121,7 +115,6 @@ class _LibraryPageState extends State<LibraryPage> {
       ),
       body: Column(
         children: [
-          // Search Bar
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: TextField(
@@ -133,10 +126,10 @@ class _LibraryPageState extends State<LibraryPage> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.blue), // Blue border when focused
+                  borderSide: BorderSide(color: Colors.blue),
                   borderRadius: BorderRadius.circular(8),
                 ),
-                floatingLabelStyle: TextStyle(color: Colors.blue), // Blue label text when focused
+                floatingLabelStyle: TextStyle(color: Colors.blue),
               ),
             ),
           ),
@@ -159,7 +152,6 @@ class _LibraryPageState extends State<LibraryPage> {
                             final book = _filteredBooks[index];
                             return GestureDetector(
                               onTap: () {
-                                // Navigate to BookDetailsPage and pass book data
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
