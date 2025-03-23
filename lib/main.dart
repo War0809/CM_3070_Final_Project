@@ -13,7 +13,7 @@ import 'package:mise_en_place/pages/library_page.dart';
 void main() async {
   await Supabase.initialize(
     url: 'https://osnbhcnwscdgvxpekmvs.supabase.co',
-    anonKey:'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9zbmJoY253c2NkZ3Z4cGVrbXZzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjc4MDI0ODQsImV4cCI6MjA0MzM3ODQ4NH0.KNWf_-iZZPCOKySw-ibZeEGNSrkU3r4PxcuiLR-ySsQ', 
+    anonKey:'****', 
     );
   runApp(const MyApp());
 }
