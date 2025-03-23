@@ -200,45 +200,6 @@ testWidgets('Add Book form valid year input test', (WidgetTester tester) async {
   expect(tester.widget<ElevatedButton>(addButton).enabled, true);
 });
 
-/* // Test 6: Add Book form invalid ISBN input test
-testWidgets('Add Book form invalid ISBN input test', (WidgetTester tester) async {
-  // Pump the AddBookPage widget into the widget tree
-  await tester.pumpWidget(const MaterialApp(
-    home: AddBookPage(),
-  ));
-
-  // Find the text fields and button by their order in the widget tree
-  final isbnField = find.byType(TextField).first;
-  final titleField = find.byType(TextField).at(1);
-  final authorField = find.byType(TextField).at(2);
-  final yearField = find.byType(TextField).at(3);
-  final indexField = find.byType(TextField).at(4);
-  final addButton = find.byType(ElevatedButton);
-
-  // Check that the text fields are found
-  expect(isbnField, findsOneWidget);
-  expect(titleField, findsOneWidget);
-  expect(authorField, findsOneWidget);
-  expect(yearField, findsOneWidget);
-  expect(indexField, findsOneWidget);
-
-  // Verify that the button is initially disabled (as per the form validation logic)
-  expect(tester.widget<ElevatedButton>(addButton).enabled, false);
-
-  // Enter invalid ISBN format
-  await tester.enterText(isbnField, 'invalid-isbn');
-  await tester.enterText(titleField, 'Test Book');
-  await tester.enterText(authorField, 'Test Author');
-  await tester.enterText(yearField, '2024');
-  await tester.enterText(indexField, 'Index info');
-
-  // Pump the widget again to rebuild after the changes
-  await tester.pump();
-
-  // Verify that the button is still disabled (invalid ISBN input)
-  expect(tester.widget<ElevatedButton>(addButton).enabled, false);
-}); */
-
 // Test 7: Add Book form valid ISBN input test
 testWidgets('Add Book form valid ISBN input test', (WidgetTester tester) async {
   // Pump the AddBookPage widget into the widget tree
