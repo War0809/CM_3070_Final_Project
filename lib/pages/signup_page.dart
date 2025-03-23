@@ -16,19 +16,15 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController = TextEditingController();
 
-  // Error messages for validation
   String? emailError;
   String? passwordError;
   String? confirmPasswordError;
 
-  // Password visibility toggles
   bool _isPasswordVisible = false;
   bool _isConfirmPasswordVisible = false;
 
-  // Track if the form is valid
   bool isFormValid = false;
 
-  /// Email validation function
   void _validateEmail(String value) {
   setState(() {
     emailError = EmailValidator.validateEmail(value);
@@ -36,7 +32,6 @@ class _SignUpPageState extends State<SignUpPage> {
   });
 }
 
-  /// Password validation function
   void _validatePassword(String value) {
   setState(() {
     passwordError = PasswordValidator.validatePassword(value);
@@ -52,7 +47,6 @@ class _SignUpPageState extends State<SignUpPage> {
   });
 }
 
-  /// Confirm Password validation function
   void _validateConfirmPassword(String value) {
     setState(() {
       if (value != _passwordController.text) {
@@ -64,7 +58,6 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  /// Check if the form is valid by ensuring there are no errors
   void _checkFormValidity() {
     setState(() {
       isFormValid = emailError == null &&
@@ -76,7 +69,6 @@ class _SignUpPageState extends State<SignUpPage> {
     });
   }
 
-  /// [createUser] Function to handle user creation
   Future<bool> createUser({
     required final String email,
     required final String password,
@@ -96,7 +88,6 @@ class _SignUpPageState extends State<SignUpPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /// Logo Image
             Image.asset(
               'assets/images/logo.png',
               width: 150,
@@ -104,7 +95,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               largeGap,
 
-              /// Email field with rounded corners and validation
               TextFormField(
                 controller: _emailController,
                 cursorColor: Colors.blue,
@@ -119,7 +109,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               smallGap,
 
-              /// Password field with rounded corners and validation
               TextFormField(
                 controller: _passwordController,
                 cursorColor: Colors.blue,
@@ -146,7 +135,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               smallGap,
 
-              /// Confirm Password field with rounded corners and validation
               TextFormField(
                 controller: _confirmPasswordController,
                 cursorColor: Colors.blue,
@@ -173,7 +161,6 @@ class _SignUpPageState extends State<SignUpPage> {
               ),
               largeGap,
 
-              /// Register button (disabled if form is invalid)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
@@ -197,9 +184,9 @@ class _SignUpPageState extends State<SignUpPage> {
                       : null, // Disable the button if form is invalid
                   style: ElevatedButton.styleFrom(
                           backgroundColor: isFormValid ? Colors.blue : Colors.grey,
-                          foregroundColor: Colors.white, // Text color
-                          elevation: 8, // 3D effect
-                          shadowColor: Colors.blueAccent, // Shadow color
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          shadowColor: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
