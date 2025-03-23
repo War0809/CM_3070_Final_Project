@@ -15,7 +15,6 @@ class BookDetailsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
-            // Display the book thumbnail at the top
             Center(
               child: Container(
                 width: 150,
@@ -34,11 +33,10 @@ class BookDetailsPage extends StatelessWidget {
                           height: double.infinity,
                         ),
                       )
-                    : const Icon(Icons.book, size: 50), // Placeholder icon
+                    : const Icon(Icons.book, size: 50),
               ),
             ),
             const SizedBox(height: 16),
-            // Display book details below the thumbnail
             Text(
               book['title'] ?? 'Unknown Title',
               style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
