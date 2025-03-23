@@ -51,7 +51,6 @@ class _ProfilePageState extends State<ProfilePage> {
       if (response.error == null && response.data != null) {
         final profile = response.data;
         setState(() {
-          // Call setState here
           _nameController.text = profile['name'] ?? '';
           _surnameController.text = profile['surname'] ?? '';
           _usernameController.text = profile['username'] ?? '';
@@ -101,7 +100,7 @@ class _ProfilePageState extends State<ProfilePage> {
 
     setState(() {
       profilePictureUrl = imageUrl;
-      isDataModified = true; // Mark data as modified for saving
+      isDataModified = true;
     });
 
   } else {
@@ -144,14 +143,12 @@ class _ProfilePageState extends State<ProfilePage> {
         _surnameController.text.isNotEmpty &&
         _usernameController.text.isNotEmpty;
 
-    // Check if any of the data has been modified
     isDataModified = _nameController.text != originalData['name'] ||
         _surnameController.text != originalData['surname'] ||
         _usernameController.text != originalData['username'] ||
-        _pickedImage != null || // Consider if an image is picked
-        (profilePictureUrl ?? '') != originalData['profile_picture_url']; // Check profile picture changes
+        _pickedImage != null ||
+        (profilePictureUrl ?? '') != originalData['profile_picture_url'];
 
-        // Debugging output
     print('isFormValid: $isFormValid');
     print('isDataModified: $isDataModified');
   });
@@ -210,29 +207,26 @@ class _ProfilePageState extends State<ProfilePage> {
   }
 
   void _handleSuccessfulSave(String name, String surname, String username) {
-  // Unfocus fields
   _nameFocusNode.unfocus();
   _surnameFocusNode.unfocus();
   _usernameFocusNode.unfocus();
 
-  // Update original data
   originalData = {
     'name': name,
     'surname': surname,
     'username': username,
-    'profile_picture_url': profilePictureUrl ?? '', // Add profile picture URL
+    'profile_picture_url': profilePictureUrl ?? '',
   };
 
-  // Set isDataModified to false to disable the save button
   setState(() {
-    isDataModified = false; // Button should be disabled after save
-    _pickedImage = null; // Reset picked image
+    isDataModified = false;
+    _pickedImage = null;
   });
 
   ScaffoldMessenger.of(context).showSnackBar(
     const SnackBar(content: Text('Profile saved successfully!')),
   );
-  _checkFormValidity(); // Ensure the form validity is updated
+  _checkFormValidity();
 }
 
 
@@ -257,27 +251,26 @@ class _ProfilePageState extends State<ProfilePage> {
             children: [
               largeGap,
 
-              // Profile picture section
               InkWell(
                 onTap:
-                    _pickImage, // Trigger image picker when the avatar is tapped
+                    _pickImage,
                 child: CircleAvatar(
                   radius: 60,
                   backgroundColor:
-                      Colors.grey[300], // Optional: Add a background color
+                      Colors.grey[300],
                   backgroundImage: profilePictureUrl != null
                       ? NetworkImage(profilePictureUrl!)
                       : const AssetImage('assets/default_profile_picture.png')
                           as ImageProvider,
                   child: Stack(
-                    alignment: Alignment.center, // Center the icon
+                    alignment: Alignment.center,
                     children: [
                       if (profilePictureUrl ==
-                          null) // Show the icon only if no picture is set
+                          null)
                         const Icon(
                           Icons.camera_alt,
-                          size: 30, // Increase icon size
-                          color: Colors.white, // Change icon color
+                          size: 30,
+                          color: Colors.white,
                         ),
                     ],
                   ),
@@ -286,7 +279,6 @@ class _ProfilePageState extends State<ProfilePage> {
 
               smallGap,
 
-              // Email field (uneditable)
               TextFormField(
                 initialValue: user?.email ?? 'No email available',
                 decoration: getInputDecoration('Email').copyWith(
@@ -299,7 +291,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               smallGap,
 
-              // Name field
               TextFormField(
                 controller: _nameController,
                 focusNode: _nameFocusNode,
@@ -317,7 +308,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               smallGap,
 
-              // Surname field
               TextFormField(
                 controller: _surnameController,
                 focusNode: _surnameFocusNode,
@@ -335,7 +325,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               smallGap,
 
-              // Username field
               TextFormField(
                 controller: _usernameController,
                 focusNode: _usernameFocusNode,
@@ -353,7 +342,6 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
               largeGap,
 
-              // Save button (enabled if form is valid and data is modified)
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
