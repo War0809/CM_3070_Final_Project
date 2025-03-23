@@ -1,36 +1,34 @@
 import 'package:flutter/material.dart';
 
-// Outlined input decoration (for search bar)
 InputDecoration getInputDecoration(String labelText, {bool hasError = false}) {
   return InputDecoration(
     labelText: labelText,
-    labelStyle: const TextStyle(color: Colors.grey), // Default label color
-    floatingLabelStyle: TextStyle(color: hasError ? Colors.red : Colors.blue), // Label color when focused
+    labelStyle: const TextStyle(color: Colors.grey),
+    floatingLabelStyle: TextStyle(color: hasError ? Colors.red : Colors.blue),
     enabledBorder: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(30.0)), // Rounded corners
-      borderSide: BorderSide(color: Colors.grey, width: 1.0), // Grey border when not focused
+      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+      borderSide: BorderSide(color: Colors.grey, width: 1.0),
     ),
     focusedBorder: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(30.0)), // Rounded corners
-      borderSide: BorderSide(color: Colors.blue, width: 2.0), // Blue border when focused
+      borderRadius: BorderRadius.all(Radius.circular(30.0)),
+      borderSide: BorderSide(color: Colors.blue, width: 2.0),
     ),
     border: const OutlineInputBorder(
-      borderRadius: BorderRadius.all(Radius.circular(30.0)), // Rounded corners
+      borderRadius: BorderRadius.all(Radius.circular(30.0)),
     ),
   );
 }
 
-// Underline input decoration (for Title, Author, Year fields)
 InputDecoration getUnderlineInputDecoration(String labelText, {bool hasError = false}) {
   return InputDecoration(
     labelText: labelText,
-    labelStyle: const TextStyle(color: Colors.black), // Default label color
-    floatingLabelStyle: TextStyle(color: hasError ? Colors.red : Colors.blue), // Label color when focused
+    labelStyle: const TextStyle(color: Colors.black),
+    floatingLabelStyle: TextStyle(color: hasError ? Colors.red : Colors.blue),
     enabledBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.grey), // Underline color when not focused
+      borderSide: BorderSide(color: Colors.grey),
     ),
     focusedBorder: const UnderlineInputBorder(
-      borderSide: BorderSide(color: Colors.blue), // Underline color when focused
+      borderSide: BorderSide(color: Colors.blue),
     ),
   );
 }
