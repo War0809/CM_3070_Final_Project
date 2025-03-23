@@ -189,7 +189,7 @@ class _LibraryPageState extends State<LibraryPage> {
                                           book['isFavorite'] ? Icons.star : Icons.star_border,
                                           color: book['isFavorite'] ? Colors.yellow : Colors.grey,
                                         ),
-                                        onPressed: () => _toggleFavorite(book), // Toggle favorite status
+                                        onPressed: () => _toggleFavorite(book),
                                       ),
                                     ],
                                   ),
