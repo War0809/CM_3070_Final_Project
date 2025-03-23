@@ -28,11 +28,6 @@ class _SignUpPageState extends State<SignUpPage> {
   // Track if the form is valid
   bool isFormValid = false;
 
- /* // Password validation regex
-  final RegExp passwordRegExp = RegExp(
-    r'^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$',
-  ); */
-
   /// Email validation function
   void _validateEmail(String value) {
   setState(() {
