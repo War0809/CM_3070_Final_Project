@@ -44,7 +44,6 @@ class _AddBookPageState extends State<AddBookPage> {
   final picker = ImagePicker();
   final List<XFile>? images = await picker.pickMultiImage();
 
-  // Check if no images were selected
   if (images == null || images.isEmpty) {
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('No images selected')),
@@ -57,56 +56,46 @@ class _AddBookPageState extends State<AddBookPage> {
   final TextRecognizer textRecognizer = TextRecognizer();
 
   for (XFile image in images) {
-    // Process the image
     final InputImage inputImage = InputImage.fromFile(File(image.path));
     final RecognizedText recognizedText = await textRecognizer.processImage(inputImage);
 
-    // Debugging
     print("Debug: Recognized Text Blocks and Lines for ${image.name}:");
     for (TextBlock block in recognizedText.blocks) {
       print("Block text: ${block.text}");
       for (TextLine line in block.lines) {
         print("Line text: ${line.text}");
 
-        // Filter and process the recognised text line
         List<String> filteredWords = _filterRecognizedText(line.text);
         allRecognizedLines.addAll(filteredWords);
       }
     }
   }
 
-  // Handle case where no text is recognised
   if (allRecognizedLines.isEmpty) {
-    print("No text recognized");  // Debug
+    print("No text recognized");
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('No text recognized in the images')),
     );
     return;
   }
 
-  // Remove duplicates by converting to a Set (case insensitive)
   Set<String> uniqueWords = allRecognizedLines.map((word) => word.toLowerCase()).toSet();
 
-  // Insert the unique recognized text as comma-separated values into the index field
   setState(() {
     String existingText = _indexController.text.trim();
     if (existingText.isNotEmpty) {
       _indexController.text = existingText + ', ' + uniqueWords.join(', ');
     } else {
     _indexController.text = uniqueWords.join(', ');
-     } // Combine unique recognized lines
+     }
   });
 
-  // Release resources
   textRecognizer.close();
 }
 
-// Function to filter recognized text
 List<String> _filterRecognizedText(String text) {
-  // Regular expression to filter out page numbers, dashes, hyphens, and unwanted characters
   final RegExp regExp = RegExp(r'[\d]+|[-—]|[A-Z](?=\s)|\b\w*[^a-zA-Z]+\w*\b');
 
-  // List of stop words to exclude
   final List<String> stopWords = [
     'a', 'about', 'above', 'after', 'again', 'against', 'all', 'am', 'an', 'and', 'any', 
     'are', 'aren\'t', 'as', 'at', 'be', 'because', 'been', 'before', 'being', 'below', 
@@ -128,15 +117,14 @@ List<String> _filterRecognizedText(String text) {
     'you\'re', 'your', 'yours', 'yourself', 'yourselves'
   ];
 
-  // Split text into words and filter using the regular expression
   List<String> filteredWords = text
-      .split(RegExp(r'\s+')) // Split by whitespace
-      .where((word) => !regExp.hasMatch(word) && word.length > 1) // Remove unwanted words and single letters
-      .map((word) => word.trim().replaceAll(RegExp(r'[\""]'), '').replaceAll(RegExp(r',$'), '')) // Trim whitespace, remove quotation marks and trailing commas
-      .where((word) => word.isNotEmpty && !stopWords.contains(word.toLowerCase())) // Remove empty strings and stop words
+      .split(RegExp(r'\s+'))
+      .where((word) => !regExp.hasMatch(word) && word.length > 1)
+      .map((word) => word.trim().replaceAll(RegExp(r'[\""]'), '').replaceAll(RegExp(r',$'), ''))
+      .where((word) => word.isNotEmpty && !stopWords.contains(word.toLowerCase()))
       .toList();
 
-  return filteredWords; // Return the filtered list of words
+  return filteredWords;
 }
 
   void _searchBooks() async {
@@ -183,7 +171,6 @@ List<String> _filterRecognizedText(String text) {
     _authorController.text = book['author'];
     _yearController.text = book['year'];
 
-    // Fetch the ISBN and thumbnail
     final identifiers = book['industryIdentifiers'] as List<dynamic>?;
     selectedThumbnail = book['thumbnail'];
 
@@ -342,7 +329,6 @@ List<String> _filterRecognizedText(String text) {
       return;
     }
 
-    // Checking if the book already exists in the database
     final existingBookResponse = await Supabase.instance.client
         .from('books')
         .select()
@@ -438,7 +424,7 @@ List<String> _filterRecognizedText(String text) {
                 height: 50,
                 fit: BoxFit.cover,
               )
-            : const Icon(Icons.book, size: 50), // Placeholder icon if no thumbnail
+            : const Icon(Icons.book, size: 50),
         title: Text(book['title']),
         subtitle: Text('${book['author']} (${book['year']})'),
         onTap: () => _selectBook(book),
@@ -472,15 +458,15 @@ List<String> _filterRecognizedText(String text) {
   decoration: getInputDecoration('Index').copyWith(
     suffixIcon: IconButton(
       icon: const Icon(Icons.camera_alt),
-      onPressed: _selectAndRecognizeText, // Call the text recognition function
+      onPressed: _selectAndRecognizeText,
     ),
   ),
   style: const TextStyle(color: Colors.black),
-  maxLines: 5, // Allow up to 5 lines of text
-  minLines: 3, // Minimum 3 lines to keep it visually larger
+  maxLines: 5,
+  minLines: 3,
   expands: false,
-  readOnly: true, // Fill the available vertical space
-  keyboardType: TextInputType.multiline, // Keyboard suitable for multiline input
+  readOnly: true,
+  keyboardType: TextInputType.multiline,
 ),
             const SizedBox(height: 20),
 
@@ -490,7 +476,7 @@ List<String> _filterRecognizedText(String text) {
                 onPressed: isFormValid && !isLoading ? _addBook : null,
                 style: ElevatedButton.styleFrom(
                   backgroundColor: isFormValid ? Colors.blue : Colors.grey,
-                  foregroundColor: Colors.white, // Text color
+                  foregroundColor: Colors.white,
                     elevation: 8,
                     shadowColor: Colors.blueAccent,
                     shape: RoundedRectangleBorder(
