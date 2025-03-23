@@ -36,7 +36,6 @@ class _SignUpPageState extends State<SignUpPage> {
   setState(() {
     passwordError = PasswordValidator.validatePassword(value);
 
-    // Ensure confirm password matches the password
     if (_confirmPasswordController.text.isNotEmpty &&
         _confirmPasswordController.text != value) {
       confirmPasswordError = 'Passwords do not match';
@@ -181,7 +180,7 @@ class _SignUpPageState extends State<SignUpPage> {
                             );
                           }
                         }
-                      : null, // Disable the button if form is invalid
+                      : null,
                   style: ElevatedButton.styleFrom(
                           backgroundColor: isFormValid ? Colors.blue : Colors.grey,
                           foregroundColor: Colors.white,
