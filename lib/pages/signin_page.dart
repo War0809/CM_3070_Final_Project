@@ -11,19 +11,15 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPageState extends State<SignInPage> {
-  /// Initialize controllers
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
 
-  // Error message for email validation
   String? emailError;
   bool isLoading = false;
   bool isFormValid = false;
 
-  // Password visibility toggle
   bool _isPasswordVisible = false;
 
-  /// Email validation function
   void _validateEmail(String value) {
   setState(() {
     emailError = EmailValidator.validateEmail(value);
@@ -31,7 +27,6 @@ class _SignInPageState extends State<SignInPage> {
   });
 }
 
-  /// Check if the form is valid
   void _checkFormValidity() {
     setState(() {
       isFormValid = emailError == null &&
@@ -40,7 +35,6 @@ class _SignInPageState extends State<SignInPage> {
     });
   }
 
-  /// [userLogin] Function to handle login
   Future<String?> userLogin({
     required final String email,
     required final String password,
@@ -60,7 +54,6 @@ class _SignInPageState extends State<SignInPage> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              /// Logo Image
             Image.asset(
               'assets/images/logo.png',
               width: 150,
@@ -68,7 +61,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
               largeGap,
 
-              /// Email Input
               TextFormField(
                 controller: _emailController,
                 cursorColor: Colors.blue,
@@ -83,7 +75,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
               smallGap,
 
-              /// Password Input with visibility toggle
               TextFormField(
                 controller: _passwordController,
                 cursorColor: Colors.blue,
@@ -109,7 +100,6 @@ class _SignInPageState extends State<SignInPage> {
               ),
               largeGap,
 
-              /// Sign In Button with 3D effect
               isLoading
                   ? const CircularProgressIndicator()
                   : SizedBox(
@@ -138,12 +128,12 @@ class _SignInPageState extends State<SignInPage> {
                                   );
                                 }
                               }
-                            : null, // Disable the button if the form is invalid
+                            : null,
                         style: ElevatedButton.styleFrom(
                           backgroundColor: isFormValid ? Colors.blue : Colors.grey,
-                          foregroundColor: Colors.white, // Text color
-                          elevation: 8, // 3D effect
-                          shadowColor: Colors.blueAccent, // Shadow color
+                          foregroundColor: Colors.white,
+                          elevation: 8,
+                          shadowColor: Colors.blueAccent,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(30.0),
                           ),
